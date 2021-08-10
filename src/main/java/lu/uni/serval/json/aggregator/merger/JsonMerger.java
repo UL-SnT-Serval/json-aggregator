@@ -34,18 +34,18 @@ public class JsonMerger {
             }
         }
         else if(jsonNode.isObject()){
-            final ObjectNode objectNode = (ObjectNode) jsonNode;
+            ObjectNode objectNode = (ObjectNode) jsonNode;
 
             if(!filter.isEmpty()){
                 Set<String> toRemove = new HashSet<>();
                 for (Iterator<String> it = objectNode.fieldNames(); it.hasNext(); ) {
                     final String fieldName = it.next();
-                    if(filter.contains(fieldName)){
+                    if(!filter.contains(fieldName)){
                         toRemove.add(fieldName);
                     }
                 }
 
-                objectNode.remove(toRemove);
+                objectNode = objectNode.remove(toRemove);
             }
 
             nodes.add(objectNode);

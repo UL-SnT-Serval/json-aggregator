@@ -3,6 +3,7 @@ package lu.uni.serval.json.aggregator;
 import com.fasterxml.jackson.databind.JsonNode;
 import lu.uni.serval.json.aggregator.merger.JsonMerger;
 import lu.uni.serval.json.aggregator.reader.JsonReader;
+import lu.uni.serval.json.aggregator.writer.JsonWriter;
 import org.apache.commons.cli.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,8 @@ public class Aggregator {
 
             final Set<JsonNode> jsonTrees = JsonReader.readJsonFiles(input);
             final JsonNode jsonMerged = JsonMerger.merge(jsonTrees, filter);
+
+            JsonWriter.jsonWriter(jsonMerged, output);
 
         } catch (ParseException e) {
             logger.printf(Level.ERROR,

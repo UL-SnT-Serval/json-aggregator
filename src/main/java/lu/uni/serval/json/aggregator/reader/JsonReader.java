@@ -27,7 +27,7 @@ public class JsonReader {
         final int numberThreads = Math.max(Runtime.getRuntime().availableProcessors(), tasks.size());
         final ExecutorService executor = Executors.newFixedThreadPool(numberThreads);
 
-        return executor.invokeAll(tasks).stream()
+        final Set<JsonNode> jsonTrees = executor.invokeAll(tasks).stream()
                 .map(f -> {
                     try {
                         return f.get();
@@ -42,6 +42,10 @@ public class JsonReader {
                 })
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
+
+        executor.shutdown();
+
+        return jsonTrees;
     }
 
     private static class Task implements Callable<JsonNode> {
