@@ -60,7 +60,7 @@ public class Aggregator {
             final JsonNode jsonMerged = JsonMerger.merge(jsonTrees, filter);
 
             JsonWriter.jsonWriter(jsonMerged, output);
-
+            logger.printf(Level.INFO, "Results saved to %s", output.getAbsolutePath());
         } catch (ParseException e) {
             logger.printf(Level.ERROR,
                     "Failed to parse command line arguments: [%s] %s",

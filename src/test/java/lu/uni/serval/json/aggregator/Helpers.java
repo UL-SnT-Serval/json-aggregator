@@ -7,12 +7,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class Helpers {
     public static File getResourceFile(String name) throws IOException, URISyntaxException {
@@ -76,5 +78,27 @@ public class Helpers {
         }
 
         return outputFolder;
+    }
+
+    public static String runMain(List<String> args) throws IOException, InterruptedException {
+        final List<String> command = new LinkedList<>();
+
+        command.add("java");
+        command.add("-cp");
+        command.add(System.getProperty("java.class.path"));
+        command.add(Aggregator.class.getName());
+        command.addAll(args);
+
+        final ProcessBuilder pb = new ProcessBuilder(command);
+        final Process process = pb.start();
+
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        final StringJoiner joiner = new StringJoiner(System.getProperty("line.separator"));
+
+        reader.lines().iterator().forEachRemaining(joiner::add);
+        process.waitFor();
+        process.destroy();
+
+        return joiner.toString();
     }
 }
