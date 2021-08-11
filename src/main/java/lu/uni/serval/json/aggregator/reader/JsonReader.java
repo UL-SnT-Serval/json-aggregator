@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -16,10 +15,23 @@ import java.util.concurrent.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Class responsible for reading the JSON tree from a JSON file on the file system.
+ */
 public class JsonReader {
+
     private static final Logger logger = LogManager.getLogger(JsonReader.class);
 
-    public static Set<JsonNode> readJsonFiles(final File folder) throws IOException, InterruptedException {
+    private JsonReader() {}
+
+    /**
+     * Static method which reads the JSON file passed as input and convert it to a JSON tree.
+     *
+     * @param folder Absolute path to the folder containing the JSON files. Note that only files with the extension '.json' are considered.
+     * @return Root of the JSON tree. If one file is malformed, it will be ignored.
+     * @throws InterruptedException The method is multithreaded to parallelize the parsing of multiple JSON files. As such it can raise an InteruptedExcetion.
+     */
+    public static Set<JsonNode> readJsonFiles(final File folder) throws InterruptedException {
         final List<Task> tasks = Stream.of(Objects.requireNonNull(folder.listFiles((dir, name) -> name.endsWith(".json"))))
                 .map(Task::new)
                 .collect(Collectors.toList());
@@ -37,6 +49,8 @@ public class JsonReader {
                                 e.getClass().getSimpleName(),
                                 e.getMessage()
                         );
+
+                        Thread.currentThread().interrupt();
                         return null;
                     }
                 })

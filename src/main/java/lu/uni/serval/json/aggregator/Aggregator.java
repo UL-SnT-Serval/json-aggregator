@@ -55,6 +55,7 @@ public class Aggregator {
                     e.getMessage()
             );
 
+            Thread.currentThread().interrupt();
             System.exit(-1);
         }
     }
@@ -85,6 +86,7 @@ public class Aggregator {
 
         return Stream.of(filterString.split(","))
                 .filter(s -> !s.isBlank())
+                .map(String::trim)
                 .collect(Collectors.toSet());
     }
 }
