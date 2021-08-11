@@ -21,6 +21,7 @@ package lu.uni.serval.json.aggregator.reader;
  */
 
 import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lu.uni.serval.json.aggregator.exception.InputException;
@@ -102,6 +103,7 @@ public class JsonReader {
         @Override
         public JsonNode call() throws Exception {
             final JsonFactory factory = new JsonFactory();
+            factory.enable(JsonParser.Feature.ALLOW_COMMENTS);
             final ObjectMapper mapper = new ObjectMapper(factory);
 
             return mapper.readTree(this.jsonFile);

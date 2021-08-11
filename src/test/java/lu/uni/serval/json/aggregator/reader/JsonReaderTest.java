@@ -61,4 +61,12 @@ class JsonReaderTest {
 
         assertEquals(errorMessage, exception.getMessage());
     }
+
+    @Test
+    void testLoadWithInvalidFile() throws IOException, URISyntaxException, InputException, InterruptedException {
+        final File jsonFolder = Helpers.getResourceFile("json/invalidFiles");
+        final Set<JsonNode> jsonNodes = JsonReader.readJsonFiles(jsonFolder);
+
+        assertEquals(1, jsonNodes.size());
+    }
 }

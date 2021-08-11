@@ -46,4 +46,22 @@ class AggregatorTest {
         final JsonNode root = Helpers.toJson(output);
         assertEquals(2, Helpers.childrenCount(root));
     }
+
+    @Test
+    void testWorkingConfigWithoutFilter() throws IOException, URISyntaxException {
+        final File input = Helpers.getResourceFile("json/folder1");
+        final File output = new File(outputFolder, "testWorkingConfigWithFilter.json");
+
+        String[] args = {
+                "-i",
+                input.getAbsolutePath(),
+                "-o",
+                output.getAbsolutePath()
+        };
+
+        Aggregator.main(args);
+
+        final JsonNode root = Helpers.toJson(output);
+        assertEquals(2, Helpers.childrenCount(root));
+    }
 }
