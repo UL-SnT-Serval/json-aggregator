@@ -28,8 +28,8 @@ class JsonMergerTest {
     @Test
     void testMergeTwoJsonWithNoFilter(){
         final Set<JsonNode> jsonTrees = new HashSet<>(2);
-        jsonTrees.add(json1);
-        jsonTrees.add(json2);
+        jsonTrees.add(json1.deepCopy());
+        jsonTrees.add(json2.deepCopy());
 
         final JsonNode merged = JsonMerger.merge(jsonTrees, Collections.emptySet());
         assertTrue(merged.isArray());
@@ -49,8 +49,8 @@ class JsonMergerTest {
     @Test
     void testMergeTwoJsonWithFilter(){
         final Set<JsonNode> jsonTrees = new HashSet<>(2);
-        jsonTrees.add(json1);
-        jsonTrees.add(json2);
+        jsonTrees.add(json1.deepCopy());
+        jsonTrees.add(json2.deepCopy());
 
         final JsonNode merged = JsonMerger.merge(jsonTrees, Collections.singleton("title"));
         assertTrue(merged.isArray());
