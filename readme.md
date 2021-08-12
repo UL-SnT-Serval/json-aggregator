@@ -35,7 +35,7 @@ To launch the tool, enter the following command:
 
     java -jar json-aggregator-{VERSION}-jar-with-dependencies.jar \
         -i /path/input/folder \
-        -o /path/output/file.csv \
+        -o /path/output/file.json \
         -f comma,seprated,list
 
 ### Attribute
