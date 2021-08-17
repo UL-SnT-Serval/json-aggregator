@@ -99,6 +99,6 @@ class AggregatorTest {
 
         final String console = Helpers.runMain(args);
         final String errorMessage = String.format("Input folder '%s' does not exist!", input.getAbsolutePath());
-        assertTrue(console.contains(String.format(errorMessage)));
+        assertTrue(console.contains(errorMessage));
     }
 }
