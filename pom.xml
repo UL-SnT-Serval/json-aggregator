@@ -23,7 +23,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -59,7 +59,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.6</version>
+                <version>0.8.7</version>
                 <executions>
                     <execution>
                         <goals>
@@ -82,7 +82,7 @@
                 <version>2.0.0</version>
                 <configuration>
                     <verbose>false</verbose>
-                    <organizationName>University of Luxembourg, Renaud RWEMALIKA</organizationName>
+                    <organizationName>University of Luxembourg</organizationName>
                     <inceptionYear>2021</inceptionYear>
                     <projectName>JSON Aggregator</projectName>
                     <licenseName>apache_v2</licenseName>
